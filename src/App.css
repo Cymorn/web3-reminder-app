@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.panel {
+  background-color: #e8f1fc;
+  padding: 20px;
+  border-radius: 10px;
+  width: 25%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.panel h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  background-color: #4a90e2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-button {
+  margin-bottom: 20px;
+}
+
+.project-card {
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 4px solid #4a90e2;
+}
+
+.tag {
+  background-color: #d3e3ff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.status {
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+hr {
+  margin: 10px 0;
+}
