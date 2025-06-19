@@ -4,8 +4,8 @@ import { ethers } from 'ethers';
 import '../css/loginpage.css';
 
 export default function LoginPage() {
-  const navigate = useNavigate();
   const [walletAddress, setWalletAddress] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameLogin = (e) => {
     e.preventDefault();
@@ -30,14 +30,19 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      <h2>Web3 Reminder App</h2>
+      <h2>Project Reminder</h2>
 
       {/* Traditional Login */}
       <form onSubmit={handleUsernameLogin}>
         <input type="text" placeholder="Username" required />
         <input type="password" placeholder="Password" required />
+
+        
         <button type="submit">Log In</button>
       </form>
+
+      <h3>Sign up if you don't have an account</h3>
+      <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
 
       <hr style={{ margin: "20px 0" }} />
 
@@ -51,21 +56,4 @@ export default function LoginPage() {
       )}
     </div>
   );
-
-  <div className="login-container">
-  <h2>Web3 Reminder App</h2>
-
-  <form onSubmit={handleUsernameLogin} className="login-form">
-    <input type="text" placeholder="Username" required />
-    <input type="password" placeholder="Password" required />
-    <button type="submit">Log In</button>
-  </form>
-
-  <div className="divider">OR</div>
-
-  <button className="metamask-button" onClick={handleMetaMaskLogin}>
-    Login with MetaMask
-  </button>
-</div>
-
 }
