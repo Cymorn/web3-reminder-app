@@ -38,16 +38,18 @@ export default function LoginPage() {
         <input type="password" placeholder="Password" required />
 
         
-        <button type="submit">Log In</button>
+        <button className='log-in-button' type="submit">Log In</button>
       </form>
 
+       <hr style={{ margin: "20px 0" }} />
+
       <h3>Sign up if you don't have an account</h3>
-      <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
+      <button className="signup-button" type="button" onClick={() => navigate('/signup')}>Sign Up</button>
 
       <hr style={{ margin: "20px 0" }} />
 
       {/* MetaMask Login */}
-      <button onClick={handleMetaMaskLogin}>
+      <button className='metamask-button' onClick={handleMetaMaskLogin}>
         Login with MetaMask
       </button>
 

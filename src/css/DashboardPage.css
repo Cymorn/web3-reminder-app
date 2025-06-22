@@ -1,87 +1,203 @@
-/* dashboard.css */
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f4ff;  /* Light bluish background */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
-}
-
 .panel {
-  background-color: #e8f1fc;  /* Light blue panel */
-  padding: 30px 25px;
-  border-radius: 12px;
-  width: 700px;
-  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
-  box-sizing: border-box;
+  padding: 20px;
 }
 
-.panel h2 {
-  text-align: center;
-  color: #2c5596;  /* Dark blue text */
-  margin-bottom: 25px;
-  font-weight: 700;
-  font-size: 26px;
-}
-
-.add-button {
+/* 🔁 Ticker */
+.crypto-ticker {
   width: 100%;
-  background-color: #4a90e2;  /* Bright blue */
-  color: white;
-  border: none;
-  padding: 12px 0;
-  border-radius: 10px;
-  font-size: 17px;
-  cursor: pointer;
-  margin-bottom: 25px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #444;
+  font-family: monospace;
+  margin-bottom: 16px;
 }
 
-.add-button:hover {
-  background-color: #357ABD;  /* Darker blue hover */
+.ticker-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-ticker 25s linear infinite;
+}
+
+@keyframes scroll-ticker {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-item {
+  display: inline-block;
+  margin-right: 24px;
+}
+
+.ticker-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 2px #ccc;
+}
+
+/* 🔔 Reminders */
+.reminder-box {
+  background: #fff9e6;
+  border: 1px solid #ffc107;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 20px 0;
+  color: #6b4500;
+}
+
+/* 📦 Project Grid */
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .project-card {
-  background-color: white;
-  padding: 18px 20px;
-  margin-bottom: 18px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+}
+
+.project-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.button-group {
+  margin-bottom: 20px;
+}
+
+
+
+/* 🧠 Auto-suggest box */
+.auto-box {
+ background: #cae3eb;
+  border: 1px solid #5499e8;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 20px 0;
+  color: #6b4500;
+}
+
+.auto-box h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.auto-box a {
+  text-decoration: none;
+  color: #0056b3;
+}
+
+.auto-box a:hover {
+  text-decoration: underline;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+.dashboard-tabs button {
+  padding: 5px 15px ;
+  border: none;
+  background: #ffffff;
+  border-radius: 50px;
+  cursor: pointer;
+
+}
+
+.dashboard-tabs button :hover {
+  background: #626262;
+  background-color: #7d7979;
+  cursor: pointer;
+}
+
+.dashboard-overview {
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 3px 12px rgba(74, 144, 226, 0.15);
-  transition: box-shadow 0.2s ease;
-  cursor: default;
+  margin-top: 20px;
 }
 
-.project-card:hover {
-  box-shadow: 0 6px 50px rgba(74, 144, 226, 0.3);
+
+.logout-button {
+  margin-left: 300%;
 }
 
-.project-card p {
-  margin: 6px 0;
-  font-size: 15px;
-  color: #2e3e68;
+.tab-content {
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.tag {
-  background-color: #c6dbff;
-  color: #2a52be;
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-left: 8px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.status {
-  background-color: #dbe9ff;
-  color: #4a90e2;
-  padding: 3px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-left: 6px;
+.tab-panel {
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.tab-panel {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-logout {
+  justify-content: left;
+  margin-left: auto;
+
 }

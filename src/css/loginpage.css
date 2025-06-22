@@ -15,7 +15,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Input styling */
@@ -26,9 +26,39 @@
   font-size: 16px;
 }
 
+.log-in-button {
+  margin: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.log-in-button :hover {
+   margin: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color:#666;
+  color: #666;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.signup-button {
+  margin: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
 /* Buttons */
 .login-form button,
 .metamask-button {
+  width: auto;
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
@@ -42,6 +72,14 @@
 .login-form button:hover,
 .metamask-button:hover {
   background-color: #357ab8;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #104685;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 /* Divider */

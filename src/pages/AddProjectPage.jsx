@@ -1,27 +1,35 @@
+// ✅ Updated AddProjectPage.jsx with localStorage saving
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/DashboardPage.css'; // reuse same styles
+import '../css/AddProjectPage.css';
 
 export default function AddProjectPage() {
-  const [name, setName] = useState('');
-  const [tag, setTag] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [status, setStatus] = useState('In Progress');
   const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: '',
+    tag: '',
+    dueDate: '',
+    status: 'In Progress',
+    socialLink: ''
+  });
+
+  const handleChange = (e) => {
+    setForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newProject = {
-      name,
-      tag,
-      dueDate,
-      status,
-    };
+    const savedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    savedProjects.push({ ...form, tasks: [] });
+    localStorage.setItem('projects', JSON.stringify(savedProjects));
 
-    // Save to localStorage or state later
-    alert(`Project "${name}" added!`);
+    alert(`✅ Project "${form.name}" added!`);
     navigate('/dashboard');
   };
 
@@ -32,37 +40,53 @@ export default function AddProjectPage() {
       <form onSubmit={handleSubmit} className="form">
         <input
           type="text"
+          name="name"
           placeholder="Project Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={form.name}
+          onChange={handleChange}
           required
         /><br/>
 
         <input
           type="text"
-          placeholder="Tag (e.g., DAO, NFT)"
-          value={tag}
-          onChange={(e) => setTag(e.target.value)}
+          name="tag"
+          placeholder="Tag (e.g. DAO, NFT)"
+          value={form.tag}
+          onChange={handleChange}
         /><br/>
 
         <input
           type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
+          name="dueDate"
+          value={form.dueDate}
+          onChange={handleChange}
           required
         /><br/>
 
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <select
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+        >
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select><br/>
 
-        <button type="submit">Save Project</button>
-      </form>
+        <input
+          type="url"
+          name="socialLink"
+          placeholder="Project Website / Social Link"
+          value={form.socialLink}
+          onChange={handleChange}
+        /><br/>
 
-      <button onClick={() => navigate('/dashboard')} className="add-button">
+       <div class="button-cointainer">
+        <button class="Add-Project"> Add Project </button>
+         <button onClick={() => navigate('/dashboard')} className="add-button" style={{ marginTop: '16px' }}>
         ← Back to Dashboard
       </button>
+       </div>
+      </form>
     </div>
   );
 }
