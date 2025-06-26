@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddProjectPage from './AddProjectPage';
 import '../css/DashboardPage.css';
 
 export default function Dashboard() {
@@ -11,10 +12,19 @@ export default function Dashboard() {
   const [githubTasks, setGithubTasks] = useState({});
   const [activeTab, setActiveTab] = useState("dashboard");
 
+  const [showAddProject, setShowAddProject] = useState(false);
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('projects') || '[]');
     setProjects(saved);
   }, []);
+
+  const openModal = () => setShowAddProject(true);
+  const closeModal = () => {
+    setShowAddProject(false);
+    const saved = JSON.parse(localStorage.getItem('projects') || '[]');
+    setProjects(saved);
+  };
 
   useEffect(() => {
     const logos = {};
@@ -85,151 +95,140 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="panel">
-      {/* Crypto Ticker */}
-      <div className="crypto-ticker">
-        <div className="ticker-content">
-          {tickerCoins.map(coin => (
-            <span key={coin.id} className="ticker-item">
-              <img src={coin.image} alt={coin.symbol} className="ticker-icon" />
-              {coin.symbol.toUpperCase()}: ${coin.current_price.toLocaleString()}
-              <span style={{ color: coin.price_change_percentage_24h >= 0 ? 'lightgreen' : 'red' }}>
-                {' '}{coin.price_change_percentage_24h >= 0 ? '▲' : '▼'}
-              </span>
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-            </span>
-          ))}
-        </div>
-      </div>
+    <div className="dashboard-container">
+      <button className="add-project-btn" onClick={openModal}>+ Add Project</button>
 
-      {/* Task Reminders */}
-      {todaysTasks.length > 0 && (
-        <div className="reminder-box">
-          <strong>🔔 You have {todaysTasks.length} task(s) due today:</strong>
-          <ul>
-            {todaysTasks.map((task, i) => (
-              <li key={i}>{task.title} <em>({task.project})</em></li>
-            ))}
-          </ul>
+      {showAddProject && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <AddProjectPage onClose={closeModal} />
+          </div>
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="dashboard-tabs">
-        <button onClick={() => setActiveTab("dashboard")}>DASHBOARD</button>
-        <button onClick={() => setActiveTab("projects")}>PROJECTS</button>
-        <button onClick={() => setActiveTab("tasks")}>TASKS</button>
-         <button className="add-button1" onClick={() => navigate('/history')}>HISTORY</button>
-        <div className="profile-logout">
-          <button onClick={() => navigate('/profile')}>Profile</button>
-           <button onClick={() => navigate('/login')}>Logout</button>
+      <div className="dashpanel">
+        <div className="crypto-ticker">
+          <div className="ticker-content">
+            {tickerCoins.map(coin => (
+              <span key={coin.id} className="ticker-item">
+                <img src={coin.image} alt={coin.symbol} className="ticker-icon" />
+                {coin.symbol.toUpperCase()}: ${coin.current_price.toLocaleString()}
+                <span style={{ color: coin.price_change_percentage_24h >= 0 ? 'lightgreen' : 'red' }}>
+                  {' '}{coin.price_change_percentage_24h >= 0 ? '▲' : '▼'}
+                </span>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Tab Content */}
-      <div className={`tab-content slide-${activeTab}`}>
-        {activeTab === "dashboard" && (
-          <div className="tab-panel">
-            <h2>📊 Welcome to Your Dashboard</h2>
-            <p>This is your overview tab.</p>
-          </div>
-        )}
-
-        {activeTab === "projects" && (
-          <div className="tab-panel">
-            <h2>📁 Your Projects</h2>
-            <div className="project-grid">
-              {projects.map((project, index) => (
-                <div key={index} className="project-card">
-                  <strong>{project.name}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "tasks" && (
-          <div className="tab-panel">
-            <h2>📋 Your Tasks</h2>
+        {todaysTasks.length > 0 && (
+          <div className="reminder-box">
+            <strong>🔔 You have {todaysTasks.length} task(s) due today:</strong>
             <ul>
-              {todaysTasks.length ? (
-                todaysTasks.map((task, i) => (
-                  <li key={i}>{task.title} — <em>{task.project}</em></li>
-                ))
-              ) : (
-                <li>No tasks due today</li>
-              )}
+              {todaysTasks.map((task, i) => (
+                <li key={i}>{task.title} <em>({task.project})</em></li>
+              ))}
             </ul>
           </div>
         )}
 
+        <div className="dashboard-tabs">
+          <button onClick={() => setActiveTab("dashboard")}>DASHBOARD</button>
+          <button onClick={() => setActiveTab("projects")}>PROJECTS</button>
+          <button onClick={() => setActiveTab("tasks")}>TASKS</button>
+          <button onClick={() => navigate('/history')}>HISTORY</button>
+          <div className="profile-logout">
+            <button onClick={() => navigate('/profile')}>Profile</button>
+            <button onClick={() => navigate('/login')}>Logout</button>
+          </div>
+        </div>
 
-      </div>
-
-      {/* Add / History Buttons */}
-      <div className="button-group">
-        <button className="add-button" onClick={() => navigate('/add')}>+ Add Project</button>
-      </div>
-
-      {/* Full Projects Section */}
-      {activeTab === "projects" && (
-        <div className="project-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="project-card">
-              {projectImages[project.name] && (
-                <img
-                  src={projectImages[project.name]}
-                  alt="logo"
-                  className="project-logo"
-                  onError={(e) => (e.target.style.display = 'none')}
-                />
-              )}
-              <p><strong>{project.name}</strong> <span className="tag">{project.tag}</span></p>
-              <p>Status: <span className="status">{project.status}</span></p>
-              <p>Due Date: <span className="status">⏳ {project.dueDate}</span></p>
-
-              {project.socialLink && project.socialLink.startsWith('http') ? (
-                <p>
-                  🔗 <a href={project.socialLink} target="_blank" rel="noreferrer">
-                    {new URL(project.socialLink).hostname}
-                  </a>
-                </p>
-              ) : (
-                <p>🔗 No valid link</p>
-              )}
-
-              {githubTasks[project.name] && (
-                <div className="github-tasks">
-                  <strong>GitHub Issues:</strong>
-                  <ul>
-                    {githubTasks[project.name].map((issue, i) => (
-                      <li key={i}>
-                        <a href={issue.url} target="_blank" rel="noreferrer">{issue.title}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+        <div className={`tab-content slide-${activeTab}`}>
+          {activeTab === "dashboard" && (
+            <div className="tab-panel">
+              <h2>📊 Welcome to Your Dashboard</h2>
+              <p>This is your overview tab.</p>
             </div>
-          ))}
-        </div>
-      )}
+          )}
 
-      {/* Auto-discovered Projects */}
-      {autoDiscoveredProjects.length > 0 && (
-        <div className="auto-box">
-          <h3>🧠 Web3 Projects You Might Like</h3>
-          <ul>
-            {autoDiscoveredProjects.map((p, i) => (
-              <li key={i}>
-                <a href={p.url} target="_blank" rel="noreferrer">
-                  {p.name} — <em>{p.category}</em>
-                </a>
-              </li>
-            ))}
-          </ul>
+          {activeTab === "projects" && (
+            <div className="tab-panel">
+              <h2>📁 Your Projects</h2>
+              <div className="project-grid">
+                {projects.map((project, index) => (
+                  <div key={index} className="project-card">
+                    {projectImages[project.name] && (
+                      <img
+                        src={projectImages[project.name]}
+                        alt="logo"
+                        className="project-logo"
+                        onError={(e) => (e.target.style.display = 'none')}
+                      />
+                    )}
+                    <p><strong>{project.name}</strong> <span className="tag">{project.tag}</span></p>
+                    <p>Status: <span className="status">{project.status}</span></p>
+                    <p>Due Date: ⏳ {project.dueDate}</p>
+
+                    {project.socialLink && project.socialLink.startsWith('http') ? (
+                      <p>
+                        🔗 <a href={project.socialLink} target="_blank" rel="noreferrer">
+                          {new URL(project.socialLink).hostname}
+                        </a>
+                      </p>
+                    ) : (
+                      <p>🔗 No valid link</p>
+                    )}
+
+                    {githubTasks[project.name] && (
+                      <div className="github-tasks">
+                        <strong>GitHub Issues:</strong>
+                        <ul>
+                          {githubTasks[project.name].map((issue, i) => (
+                            <li key={i}>
+                              <a href={issue.url} target="_blank" rel="noreferrer">{issue.title}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "tasks" && (
+            <div className="tab-panel">
+              <h2>📋 Your Tasks</h2>
+              <ul>
+                {todaysTasks.length ? (
+                  todaysTasks.map((task, i) => (
+                    <li key={i}>{task.title} — <em>{task.project}</em></li>
+                  ))
+                ) : (
+                  <li>No tasks due today</li>
+                )}
+              </ul>
+            </div>
+          )}
         </div>
-      )}
+
+        {autoDiscoveredProjects.length > 0 && (
+          <div className="auto-box">
+            <h3>🧠 Web3 Projects You Might Like</h3>
+            <ul>
+              {autoDiscoveredProjects.map((p, i) => (
+                <li key={i}>
+                  <a href={p.url} target="_blank" rel="noreferrer">
+                    {p.name} — <em>{p.category}</em>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

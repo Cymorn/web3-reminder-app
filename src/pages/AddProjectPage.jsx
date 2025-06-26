@@ -1,12 +1,7 @@
-// ✅ Updated AddProjectPage.jsx with localStorage saving
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../css/AddProjectPage.css';
 
-export default function AddProjectPage() {
-  const navigate = useNavigate();
-
+export default function AddProjectPage({ onClose }) {
   const [form, setForm] = useState({
     name: '',
     tag: '',
@@ -30,11 +25,12 @@ export default function AddProjectPage() {
     localStorage.setItem('projects', JSON.stringify(savedProjects));
 
     alert(`✅ Project "${form.name}" added!`);
-    navigate('/dashboard');
+    onClose(); // Close modal and refresh list
   };
 
   return (
     <div className="panel">
+      <button className="close-btn" onClick={onClose}>×</button>
       <h2>Add New Project</h2>
 
       <form onSubmit={handleSubmit} className="form">
@@ -45,7 +41,7 @@ export default function AddProjectPage() {
           value={form.name}
           onChange={handleChange}
           required
-        /><br/>
+        /><br />
 
         <input
           type="text"
@@ -53,7 +49,7 @@ export default function AddProjectPage() {
           placeholder="Tag (e.g. DAO, NFT)"
           value={form.tag}
           onChange={handleChange}
-        /><br/>
+        /><br />
 
         <input
           type="date"
@@ -61,7 +57,7 @@ export default function AddProjectPage() {
           value={form.dueDate}
           onChange={handleChange}
           required
-        /><br/>
+        /><br />
 
         <select
           name="status"
@@ -70,7 +66,7 @@ export default function AddProjectPage() {
         >
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
-        </select><br/>
+        </select><br />
 
         <input
           type="url"
@@ -78,14 +74,12 @@ export default function AddProjectPage() {
           placeholder="Project Website / Social Link"
           value={form.socialLink}
           onChange={handleChange}
-        /><br/>
+        /><br />
 
-       <div class="button-cointainer">
-        <button class="Add-Project"> Add Project </button>
-         <button onClick={() => navigate('/dashboard')} className="add-button" style={{ marginTop: '16px' }}>
-        ← Back to Dashboard
-      </button>
-       </div>
+        <div className="button-container">
+          <button type="submit" className="add-project-button">Add Project</button>
+          <button type="button" onClick={onClose} className="cancel-button">← Cancel</button>
+        </div>
       </form>
     </div>
   );

@@ -1,7 +1,20 @@
+.panel {
+    padding: 30px;
+    text-align: center;
+    width: 400px;
+    margin: 80px auto;
+    border: 1px solid ;
+    border-radius: 50px;
+    background-color: #ccc;
+    font-family: sans-serif;
+    box-shadow: 0 8px 16px ;
+}
+
 form {
     display: flex;
      flex-direction: column;
      gap: 1px;
+     
 }
 
 input {
@@ -9,12 +22,14 @@ input {
     border: 1px solid #ccc;
      border-radius: 8px;
   font-size: 16px;
+  
 }
 
 button{ 
     padding: 10px;
     max-width: 100px;
     text-align: center;
+    border-radius: 50px;
 
 }
 
@@ -23,12 +38,14 @@ button{
     align-items: center;
     height:100vh;
     justify-content: center;
+    border-radius: 50px;
 }
 
 .Add-Project {
     padding: 10px;
     display: flex;
     cursor: pointer;
+    border-radius: 50px;
 }
 
 
