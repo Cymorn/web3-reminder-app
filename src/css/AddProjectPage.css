@@ -1,7 +1,7 @@
 .panel {
     padding: 30px;
     text-align: center;
-    width: 400px;
+    width: auto;
     margin: 80px auto;
     border: 1px solid ;
     border-radius: 50px;
@@ -30,13 +30,18 @@ button{
     max-width: 100px;
     text-align: center;
     border-radius: 50px;
+    cursor: pointer;
 
+}
+
+button.hover {
+    background-color: #ccc;
 }
 
 .button-container {
     display: flex;
     align-items: center;
-    height:100vh;
+    height:10vh;
     justify-content: center;
     border-radius: 50px;
 }

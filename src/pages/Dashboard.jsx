@@ -94,10 +94,12 @@ export default function Dashboard() {
       .map(task => ({ title: task.title, project: project.name })) || []
   );
 
+  
+  
   return (
     <div className="dashboard-container">
-      <button className="add-project-btn" onClick={openModal}>+ Add Project</button>
 
+    
       {showAddProject && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -105,7 +107,7 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
+      
       <div className="dashpanel">
         <div className="crypto-ticker">
           <div className="ticker-content">
@@ -213,6 +215,10 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+
+
+         <button className="add-project" onClick={openModal}>+ Add Project</button>
+
 
         {autoDiscoveredProjects.length > 0 && (
           <div className="auto-box">

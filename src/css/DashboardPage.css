@@ -1,8 +1,9 @@
-.panel {
+/* === Layout === */
+.dashboard-container {
   padding: 20px;
 }
 
-/* 🔁 Ticker */
+/* === Crypto Ticker === */
 .crypto-ticker {
   width: 100%;
   overflow: hidden;
@@ -23,12 +24,8 @@
 }
 
 @keyframes scroll-ticker {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
 }
 
 .ticker-item {
@@ -45,7 +42,7 @@
   box-shadow: 0 0 2px #ccc;
 }
 
-/* 🔔 Reminders */
+/* === Reminders === */
 .reminder-box {
   background: #fff9e6;
   border: 1px solid #ffc107;
@@ -55,7 +52,7 @@
   color: #6b4500;
 }
 
-/* 📦 Project Grid */
+/* === Project Cards === */
 .project-grid {
   display: flex;
   flex-wrap: wrap;
@@ -76,11 +73,11 @@
   height: 40px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Buttons */
-.add-button {
+/* === Buttons === */
+.add-button, .add-project {
   background-color: #007bff;
   color: white;
   border: none;
@@ -91,8 +88,7 @@
   margin-right: 10px;
 }
 
-
-.add-button:hover {
+.add-button:hover, .add-project:hover {
   background-color: #0056b3;
 }
 
@@ -100,11 +96,55 @@
   margin-bottom: 20px;
 }
 
+/* === Tabs === */
+.dashboard-tabs {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
 
+.dashboard-tabs button {
+  padding: 5px 15px;
+  border: none;
+  background: #ffffff;
+  border-radius: 50px;
+  cursor: pointer;
+}
 
-/* 🧠 Auto-suggest box */
+.dashboard-tabs button:hover {
+  background: #7d7979;
+  color: white;
+}
+
+/* === Panels and Animations === */
+.tab-content {
+  animation: panelFade 0.4s ease-in-out;
+}
+
+.tab-panel {
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  animation: panelFade 0.4s ease-in;
+}
+
+@keyframes panelFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-logout {
+  margin-left: auto;
+}
+
+/* === Auto-Discovered Projects === */
 .auto-box {
- background: #cae3eb;
+  background: #cae3eb;
   border: 1px solid #5499e8;
   padding: 12px;
   border-radius: 6px;
@@ -126,66 +166,40 @@
   text-decoration: underline;
 }
 
-.dashboard-tabs {
+/* === MODAL OVERLAY === */
+.modal-overlay {
   display: flex;
-  gap: 15px;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
-  text-align: justify;
+  padding: 1rem;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
 }
 
-.dashboard-tabs button {
-  padding: 5px 15px ;
-  border: none;
-  background: #ffffff;
+.modal-content {
+  background: transparent;
+  max-height: 90vh;
+  width: 100%;
+  max-width: 500px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel {
+  background-color: #f0f4f8;
+  padding: 2rem 1.5rem;
   border-radius: 50px;
-  cursor: pointer;
-
-}
-
-.dashboard-tabs button :hover {
-  background: #626262;
-  background-color: #7d7979;
-  cursor: pointer;
-}
-
-.dashboard-overview {
-  text-align: center;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 
-.logout-button {
-  margin-left: 300%;
-}
-
-.tab-content {
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.tab-panel {
-  text-align: center;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  max-width: 600px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-}
-
-.tab-panel {
-  animation: fadeIn 0.4s ease-in;
-}
-
-@keyframes fadeIn {
+/* === SLIDE-IN ANIMATION === */
+@keyframes panelFade {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -196,61 +210,9 @@
   }
 }
 
-.profile-logout {
-  justify-content: left;
-  margin-left: auto;
-
+.tab-panel{
+  animation: panelFade  0.45s ease-in
 }
-
-/* === MODAL STYLES === */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 1%;
-  background-color: rgba(0, 0, 0, 0.5); /* Dim background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999; /* Make sure it appears on top */
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Optional smooth fade-in effect */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === Modal Popup Animation === */
-.modal-content {
-  animation: popupSlide 0.3s ease-out;
-}
-
-@keyframes popupSlide {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+/*{
+  outline: 1px solid red;  Helps see oversized areas 
+} */
